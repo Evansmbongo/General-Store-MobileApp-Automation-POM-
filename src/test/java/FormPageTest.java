@@ -10,7 +10,6 @@ public class FormPageTest extends BaseTest{
         formPage.setNameField("Evans Mbongo");
         formPage.setGender();
 
-        driver.
 
 
 
