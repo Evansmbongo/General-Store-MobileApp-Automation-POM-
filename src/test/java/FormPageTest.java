@@ -4,14 +4,13 @@ import org.testng.annotations.Test;
 
 public class FormPageTest extends BaseTest{
     @Test
-    public void FormTest(){
+    public void FormTest() throws InterruptedException {
         FormPage formPage = new FormPage(driver);
-        formPage.clickDropDown();
+        formPage.setCountry();
         formPage.setNameField("Evans Mbongo");
         formPage.setGender();
-
-
-
+        formPage.clickLetShopButton();
+        Thread.sleep(5000);
 
     }
 
