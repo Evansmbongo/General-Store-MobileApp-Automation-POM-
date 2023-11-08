@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 public class AndroidActions {
@@ -12,6 +13,11 @@ public class AndroidActions {
                 "UiSelector().text(\"" + text + "\"))")).click();
     }
 
+    public void longPressAction(AndroidDriver driver, WebElement Press){
+        ((JavascriptExecutor)driver).executeScript("mobile: longClickGesture",
+                ImmutableMap.of("elementId", ((RemoteWebElement)Press).getId(), "duration",
+                        2000));
+    }
 
 }
 

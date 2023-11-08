@@ -13,6 +13,31 @@ public class CartPage extends AndroidActions {
     }
 
     @AndroidFindBy(id = "com.androidsample.generalstore:id/termsButton")
-    public WebElement Press;
+    private WebElement Press;
+
+    @AndroidFindBy(id = "android:id/button1")
+    private WebElement closeButton;
+
+    @AndroidFindBy (className = "android.widget.CheckBox")
+    private WebElement emailCheckbox;
+
+    @AndroidFindBy (id = "com.androidsample.generalstore:id/btnProceed")
+    private WebElement proceedButton;
+
+    public void longPress(){
+        longPressAction(driver,Press);
+    }
+
+    public void closeBtn(){
+        closeButton.click();
+    }
+
+    public void checkBox(){
+        emailCheckbox.click();
+    }
+
+    public void proceedBtn(){
+        proceedButton.click();
+    }
 
 }

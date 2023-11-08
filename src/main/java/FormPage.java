@@ -38,8 +38,9 @@ public class FormPage extends AndroidActions{
 
     public void setCountry() throws InterruptedException {
         dropDown.click();
-        scrollAction(driver,"Benin");
         Thread.sleep(2000);
+        scrollAction(driver,"Afghanistan");
+
     }
 
     @AndroidFindBy(id = "com.androidsample.generalstore:id/btnLetsShop")

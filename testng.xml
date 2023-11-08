@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="End To End General Store APK Automation with Framework">
+    <test name="Form Page Test">
+        <classes>
+            <class name="FormPageTest"></class>
+        </classes>
+    </test>
+
+    <test name="Product Page Test">
+        <classes>
+            <class name="ProductPageTest"></class>
+        </classes>
+    </test>
+
+    <test name="Cart Page Test">
+        <classes>
+            <class name="CartPageTest"></class>
+        </classes>
+    </test>
+
+</suite>
