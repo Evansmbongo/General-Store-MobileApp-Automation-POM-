@@ -1,3 +1,5 @@
+import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ProductPageTest extends BaseTest{
@@ -11,6 +13,7 @@ public class ProductPageTest extends BaseTest{
         formPage.clickLetShopButton();
 
         Thread.sleep(2000);
+        Assert.assertTrue(driver.findElement(By.id("com.androidsample.generalstore:id/toolbar_title")).isDisplayed());
         productPage.scrollTOProduct();
         productPage.clickCart();
 
