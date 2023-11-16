@@ -17,7 +17,7 @@ import java.time.Duration;
 public class BaseTest {
     public AndroidDriver driver;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void configureAppium() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options();
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -31,7 +31,7 @@ public class BaseTest {
     }
 
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) throws IOException {
         if (result.getStatus() == ITestResult.FAILURE) {
             File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

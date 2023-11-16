@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CartPageTest extends BaseTest {
-    @Test
+    @Test(groups = {"smoke"})
     public void PageTest() throws InterruptedException {
         ProductPage productPage = new ProductPage(driver);
         FormPage formPage = new FormPage(driver);
@@ -21,7 +21,7 @@ public class CartPageTest extends BaseTest {
         productPage.scrollTOProduct();
         productPage.clickCart();
 
-        Assert.assertTrue(driver.findElement(By.id("com.androidsample.generalstore:id/btnProceed")).isDisplayed());
+        Assert.assertTrue(cartPage.cartTitleBar.isDisplayed());
         cartPage.longPress();
         cartPage.closeBtn();
         cartPage.checkBox();

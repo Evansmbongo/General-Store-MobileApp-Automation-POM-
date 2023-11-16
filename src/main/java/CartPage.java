@@ -12,6 +12,9 @@ public class CartPage extends AndroidActions {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
+    @AndroidFindBy(id = "com.androidsample.generalstore:id/btnProceed")
+    public WebElement cartTitleBar;
+
     @AndroidFindBy(id = "com.androidsample.generalstore:id/termsButton")
     private WebElement Press;
 

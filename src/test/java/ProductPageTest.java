@@ -13,7 +13,7 @@ public class ProductPageTest extends BaseTest{
         formPage.clickLetShopButton();
 
         Thread.sleep(2000);
-        Assert.assertTrue(driver.findElement(By.id("com.androidsample.generalstore:id/toolbar_title")).isDisplayed());
+        Assert.assertTrue(productPage.productTitleBar.isDisplayed());
         productPage.scrollTOProduct();
         productPage.clickCart();
 

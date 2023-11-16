@@ -15,6 +15,9 @@ public class ProductPage extends AndroidActions {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
+    @AndroidFindBy(id = "com.androidsample.generalstore:id/toolbar_title")
+    public WebElement productTitleBar;
+
     @AndroidFindBy (id = "com.androidsample.generalstore:id/appbar_btn_cart")
     private WebElement clickCartButton;
 
