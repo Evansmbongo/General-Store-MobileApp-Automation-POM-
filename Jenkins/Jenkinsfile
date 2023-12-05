@@ -1,0 +1,64 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage("Clone Repo") {
+            steps {
+                script {
+                    git branch: 'main', credentialsId: 'c3a33c13-2576-4430-a943-acddecfac2ca', url: 'https://github.com/Evansmbongo/Sauce-Demo-Automation-POM-Framework.git'
+                }
+            }
+        }
+        
+        stage("Navigate") {
+            steps {
+                script {
+                    dir('C:\\Users\\EvansMbongo\\.jenkins\\workspace\\SauceDemoPipeline') {
+                        bat 'mvn validate'
+                        bat 'mvn test'
+                    }
+                }
+            }
+        }
+        
+        stage('Clean and Install') {
+            steps {
+                script {
+                    dir('C:\\Users\\EvansMbongo\\.jenkins\\workspace\\SauceDemoPipeline') {
+                        bat 'mvn clean install'
+                    }
+                }
+            }
+        }
+        
+        stage('Validate') {
+            steps {
+                script {
+                    dir('C:\\Users\\EvansMbongo\\.jenkins\\workspace\\SauceDemoPipeline') {
+                        bat 'mvn validate'
+                    }
+                }
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                script {
+                    dir('C:\\Users\\EvansMbongo\\.jenkins\\workspace\\SauceDemoPipeline') {
+                        bat 'mvn test'
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            emailext (
+                to: 'evans.mbongo@amalitech.com',
+                subject: "Jenkins Pipeline Notification - Build ${currentBuild.number}",
+                body: "Build Number: ${currentBuild.number}\nBuild ID: ${env.BUILD_ID}\nBuild Status: ${currentBuild.currentResult}"
+            )
+        }
+    }
+}
