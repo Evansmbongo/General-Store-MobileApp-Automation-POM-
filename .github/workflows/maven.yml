@@ -17,4 +17,11 @@ jobs:
         cache: maven
 
     - name: Clean
-      run: mvn clean test
+      run: mvn clean install -U
+
+    # - name: Validate
+    #   run: mvn validate
+
+    # - name: Verify
+    #   run: mvn verify
+
