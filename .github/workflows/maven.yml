@@ -16,11 +16,28 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    # Appium specific steps
+    - name: Install Appium
+      run: npm install -g appium
+
+    - name: Start Appium Server
+      run: appium &
+
+      # Install Appium test framework and dependencies
+    - name: Install Appium-Doctor
+      run: npm install -g appium-doctor
+
+    - name: Run Appium Tests
+      run: appium-doctor
+
     - name: Clean
       run: mvn clean 
 
     - name: Compile
       run: mvn compile
+
+    - name: Stop Appium Server
+      run: pkill -9 appium
 
     # - name: Verify
     #   run: mvn verify
