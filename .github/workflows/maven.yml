@@ -39,7 +39,6 @@ jobs:
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4.0.0
-            
         with:
           distribution: 'adopt'
           java-version: '17'
@@ -57,6 +56,15 @@ jobs:
 
       - name: Start Appium server
         run: appium --log-level info &
+
+      - name: Wait for Emulator to start
+        run: adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done'
+
+      - name: Reset ADB Server
+        run: adb kill-server && adb start-server
+
+      - name: Retry ADB Command
+        run: adb shell getprop sys.boot_completed || adb shell getprop sys.boot_completed
 
       - name: Run UI Tests
         uses: reactivecircus/android-emulator-runner@v2
