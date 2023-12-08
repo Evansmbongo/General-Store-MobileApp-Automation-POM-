@@ -14,8 +14,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup Android
-        uses: actions/setup-android@v2
+      - name: Android Emulator Runner Without SDK Setup
+        uses: RandyLutcavich/android-emulator-runner-without-sdk-setup@v1.0.3
+            
 
       - name: Run Emulator
         uses: vgaidarji/android-github-actions-emulator@v1.0.1
@@ -26,7 +27,7 @@ jobs:
         uses: actions/setup-java@4.0.0 
         with:
           distribution: 'adopt'
-          java-version: '21'
+          java-version: '17'
 
       - name: Install Node.js and npm
         uses: actions/setup-node@v4
