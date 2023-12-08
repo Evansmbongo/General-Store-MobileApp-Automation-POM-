@@ -3,7 +3,7 @@ name: General Store Automation workflow
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
