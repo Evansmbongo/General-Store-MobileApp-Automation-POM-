@@ -23,8 +23,9 @@ jobs:
         with:
           avd-name: my_avd
 
-      - name: Set up JDK
-        uses: actions/setup-java@4.0.0 
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.0.0
+            
         with:
           distribution: 'adopt'
           java-version: '17'
