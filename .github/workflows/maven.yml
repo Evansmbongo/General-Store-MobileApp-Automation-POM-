@@ -17,15 +17,16 @@ jobs:
       - name: Install Android SDK
         run: |
           # Download and extract the Android SDK tools
-          wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
-          unzip -q commandlinetools-linux-6858069_latest.zip -d cmdline-tools
+          wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip
+          unzip -q commandlinetools-linux-7583922_latest.zip -d cmdline-tools
           
           # Set up environment variables
           export ANDROID_HOME=$PWD/cmdline-tools
-          export PATH=$PATH:$PWD/cmdline-tools/bin
+          export PATH=$PATH:$ANDROID_HOME/cmdline-tools/bin:$ANDROID_HOME/platform-tools
           
-          # Install SDK components
-          sdkmanager --install "platform-tools" "build-tools;31.0.0" "platforms;android-31"
+          # Install SDK components using the new sdkmanager
+          yes | sdkmanager --licenses
+          sdkmanager "platform-tools" "build-tools;31.0.0" "platforms;android-31"
 
       - name: Set Android Home
         run: export ANDROID_HOME=$PWD/cmdline-tools
