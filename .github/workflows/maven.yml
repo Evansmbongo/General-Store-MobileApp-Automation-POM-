@@ -63,8 +63,8 @@ jobs:
       # - name: Reset ADB Server
       #   run: adb kill-server && adb start-server
 
-      - name: Retry ADB Command
-        run: adb shell getprop sys.boot_completed || adb shell getprop sys.boot_completed
+      # - name: Retry ADB Command
+      #   run: adb shell getprop sys.boot_completed || adb shell getprop sys.boot_completed
 
       - name: Run UI Tests
         uses: reactivecircus/android-emulator-runner@v2
