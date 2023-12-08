@@ -15,13 +15,15 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Android Emulator Runner Without SDK Setup
-        uses: RandyLutcavich/android-emulator-runner-without-sdk-setup@v1.0.3        
-
-      - name: Run Emulator
-        uses: vgaidarji/android-github-actions-emulator@v1.0.1
+        uses: RandyLutcavich/android-emulator-runner-without-sdk-setup@v1.0.3
         with:
-          avd-name: my_avd
           api-level: 30
+
+      # - name: Run Emulator
+      #   uses: vgaidarji/android-github-actions-emulator@v1.0.1
+      #   with:
+      #     avd-name: my_avd
+      #     api-level: 30
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4.0.0
