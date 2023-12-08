@@ -14,48 +14,31 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # - name: Android Emulator Runner Without SDK Setup
-      #   uses: RandyLutcavich/android-emulator-runner-without-sdk-setup@v1.0.3
-      #   with:
-      #     api-level: 30
-
-      # - name: Run Emulator
-      #   uses: vgaidarji/android-github-actions-emulator@v1.0.1
-      #   with:
-      #     avd-name: my_avd
-      #     api-level: 30
-
-      # - name: Run Emulator
-      #   uses: ReactiveCircus/android-emulator-runner@v2.29.0
-      #   with:
-      #     api-level: 31
-      #     profile: Nexus 6
-      #     arch: arm64-v8a
-      #     force-avd-creation: false
-      #     avd-name: macOS-avd-arm64-v8a-31
-      #     emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-      #     disable-animations: true
-      #     script: ./gradlew connectedCheck
-
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4.0.0
-        with:
-          distribution: 'adopt'
-          java-version: '17'
-
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.10.0'
-
-      - name: Install Appium dependencies
+      - name: Install Android SDK
         run: |
-          npm install -g appium@latest
-          npm install -g appium-doctor@latest
-          appium-doctor --android
+          wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
+          unzip commandlinetools-linux-6858069_latest.zip -d cmdline-tools
+          export ANDROID_HOME=$PWD/cmdline-tools
+          export PATH=$PATH:$PWD/cmdline-tools/bin
+          sdkmanager --install "platform-tools"
+
+      - name: Set Android Home
+        run: export ANDROID_HOME=$PWD/cmdline-tools
+
+      - name: Add ADB to Path
+        run: export PATH=$PATH:$ANDROID_HOME/platform-tools
 
       - name: Start Appium server
         run: appium --log-level info &
+
+      - name: Wait for Emulator to start
+        run: adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done'
+
+      - name: Reset ADB Server
+        run: adb kill-server && adb start-server
+
+      - name: Retry ADB Command
+        run: adb shell getprop sys.boot_completed || adb shell getprop sys.boot_completed
 
       - name: Check ADB Devices
         run: adb devices
