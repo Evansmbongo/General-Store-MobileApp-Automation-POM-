@@ -57,8 +57,8 @@ jobs:
       - name: Start Appium server
         run: appium --log-level info &
 
-      - name: Wait for Emulator to start
-        run: adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done'
+      # - name: Wait for Emulator to start
+      #   run: adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done'
 
       - name: Reset ADB Server
         run: adb kill-server && adb start-server
