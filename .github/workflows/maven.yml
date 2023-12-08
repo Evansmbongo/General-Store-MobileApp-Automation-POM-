@@ -37,18 +37,6 @@ jobs:
       #     disable-animations: true
       #     script: ./gradlew connectedCheck
 
-      - name: Run UI Tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 32
-          profile: Pixel 6 Pro 2
-          arch: arm64-v8a
-          force-avd-creation: false
-          avd-name: macOS-avd-arm64-v8a-31
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
-          script: ./gradlew connectedCheck
-
       - name: Setup Java JDK
         uses: actions/setup-java@v4.0.0
             
@@ -69,6 +57,18 @@ jobs:
 
       - name: Start Appium server
         run: appium --log-level info &
+
+      - name: Run UI Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 32
+          profile: Nexus 6
+          arch: arm64-v8a
+          force-avd-creation: false
+          avd-name: macOS-avd-arm64-v8a-31
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: ./gradlew connectedCheck
 
       - name: Build and run Maven tests
         run: |
