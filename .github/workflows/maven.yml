@@ -1,32 +1,31 @@
 name: General Store Automation workflow
 
 on:
-  [push, workflow_dispatch]
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   E2E:
     runs-on: ubuntu-latest
-    steps:
-      # Services
-      - name: Emulator
-        services:
-          emulator:
-            port-mappings:
-              - 5555:5555
-              - 5556:5556
-              - 5037:5037
-            options:
-              --name: Nexus_5X_API_30_x86
-              --device: "Nexus 5X"
-              --resolution: 1080x1920
+    services:
+      emulator:
+        image: budtmo/docker-android-x86-emu:latest
+        ports:
+          - 5555:5555
+          - 5556:5556
+          - 5037:5037
+        options: --name Nexus_5X_API_30_x86 --device "Nexus 5X" --resolution 1080x1920
 
+    steps:
       # Checkout repository
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       # Set up JDK
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '17'
