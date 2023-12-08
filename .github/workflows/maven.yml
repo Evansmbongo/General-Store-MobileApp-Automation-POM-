@@ -7,17 +7,48 @@ jobs:
   E2E:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
+      # Services
+      - name: Emulator
+        services:
+          emulator:
+            port-mappings:
+              - 5555:5555
+              - 5556:5556
+              - 5037:5037
+            options:
+              --name: Nexus_5X_API_30_x86
+              --device: "Nexus 5X"
+              --resolution: 1080x1920
 
-    - name: Appium Server Action
-      uses: moatazeldebsy/Appium-Server-GitHub-Action@V1.0.7
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Stop Appium Server
-      run: pkill -9 appium
+      # Set up JDK
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      # Install Node.js and npm
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Install Appium dependencies
+      - name: Install Appium dependencies
+        run: |
+          npm install -g appium@latest
+          npm install -g appium-doctor@latest # Update as needed
+          appium-doctor --android
+
+      # Start Appium server
+      - name: Start Appium server
+        run: appium --log-level info &
+
+      # Build and run Maven tests
+      - name: Build and run Maven tests
+        run: |
+          mvn clean test
