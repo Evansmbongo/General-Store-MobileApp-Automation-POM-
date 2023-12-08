@@ -19,10 +19,15 @@ jobs:
       #   with:
       #     api-level: 30
 
+      # - name: Run Emulator
+      #   uses: vgaidarji/android-github-actions-emulator@v1.0.1
+      #   with:
+      #     avd-name: my_avd
+      #     api-level: 30
+
       - name: Run Emulator
-        uses: vgaidarji/android-github-actions-emulator@v1.0.1
+        uses: ReactiveCircus/android-emulator-runner@v2.29.0
         with:
-          avd-name: my_avd
           api-level: 30
 
       - name: Setup Java JDK
