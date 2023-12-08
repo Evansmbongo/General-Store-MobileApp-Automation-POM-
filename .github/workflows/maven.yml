@@ -39,10 +39,11 @@ jobs:
 
       - name: Wait for Emulator to start
         run: |
-          while [[ -z $(${{ runner.tool_cache }}/android/sdk/platform-tools/adb shell getprop sys.boot_completed) ]]; do
-            sleep 1
+          while [[ -z $(${RUNNER_TOOL_CACHE}/android/sdk/platform-tools/adb shell getprop sys.boot_completed) ]]; do
+            /bin/bash -c 'sleep 1'
           done
         env:
+          RUNNER_TOOL_CACHE: ${{ runner.tool_cache }}
           PATH: ${{ runner.tool_cache }}/android/sdk/platform-tools:$PATH
           ANDROID_HOME: ${{ runner.tool_cache }}/android/sdk
           JAVA_HOME: ${{ runner.tool_cache }}/java/adopt@1.17.0-1/x64
