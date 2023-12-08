@@ -46,7 +46,7 @@ jobs:
       - name: Install Appium dependencies
         run: |
           npm install -g appium@latest
-          npm install -g appium-doctor@latest # Update as needed
+          npm install -g appium-doctor@latest
           appium-doctor --android
 
       - name: Start Appium server
