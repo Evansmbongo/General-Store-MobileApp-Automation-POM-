@@ -8,43 +8,40 @@ on:
 
 jobs:
   E2E:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
-      - runs-on: macos-latest
-        steps:
-          - uses: actions/checkout@v3
-          - uses: actions/setup-android@v2
-          - name: Run Emulator
-            uses: vgaidarji/android-github-actions-emulator@v1.0.1
-            with:
-              avd-name: my_avd
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-          # Set up JDK
-          - name: Set up JDK
-            uses: actions/setup-java@4.0.0 
-            with:
-              distribution: 'adopt'
-              java-version: '21'
+      - name: Setup Android
+        uses: actions/setup-android@v2
 
-          # Install Node.js and npm
-          - name: Install Node.js and npm
-            uses: actions/setup-node@v4
-            with:
-              node-version: '20.10.0'
+      - name: Run Emulator
+        uses: vgaidarji/android-github-actions-emulator@v1.0.1
+        with:
+          avd-name: my_avd
 
-          # Install Appium dependencies
-          - name: Install Appium dependencies
-            run: |
-              npm install -g appium@latest
-              npm install -g appium-doctor@latest # Update as needed
-              appium-doctor --android
+      - name: Set up JDK
+        uses: actions/setup-java@4.0.0 
+        with:
+          distribution: 'adopt'
+          java-version: '21'
 
-          # Start Appium server
-          - name: Start Appium server
-            run: appium --log-level info &
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.10.0'
 
-          # Build and run Maven tests
-          - name: Build and run Maven tests
-            run: |
-              mvn clean test
+      - name: Install Appium dependencies
+        run: |
+          npm install -g appium@latest
+          npm install -g appium-doctor@latest # Update as needed
+          appium-doctor --android
+
+      - name: Start Appium server
+        run: appium --log-level info &
+
+      - name: Build and run Maven tests
+        run: |
+          mvn clean test
