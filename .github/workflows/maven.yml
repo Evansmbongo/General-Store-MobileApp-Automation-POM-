@@ -9,45 +9,42 @@ on:
 jobs:
   E2E:
     runs-on: ubuntu-latest
-    services:
-      emulator:
-        image: budtmo/docker-android-x86-emu:latest
-        ports:
-          - 5555:5555
-          - 5556:5556
-          - 5037:5037
-        options: --name Nexus_5X_API_30_x86 --device "Nexus 5X" --resolution 1080x1920
 
     steps:
-      # Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - runs-on: macos-latest
+        steps:
+          - uses: actions/checkout@v3
+          - uses: actions/setup-android@v2
+          - name: Run Emulator
+            uses: reactivecircus/android-emulator-runner@v2
+            with:
+              avd-name: my_avd
 
-      # Set up JDK
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'adopt'
-          java-version: '17'
+          # Set up JDK
+          - name: Set up JDK
+            uses: actions/setup-java@v2
+            with:
+              distribution: 'adopt'
+              java-version: '17'
 
-      # Install Node.js and npm
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+          # Install Node.js and npm
+          - name: Install Node.js and npm
+            uses: actions/setup-node@v3
+            with:
+              node-version: '18'
 
-      # Install Appium dependencies
-      - name: Install Appium dependencies
-        run: |
-          npm install -g appium@latest
-          npm install -g appium-doctor@latest # Update as needed
-          appium-doctor --android
+          # Install Appium dependencies
+          - name: Install Appium dependencies
+            run: |
+              npm install -g appium@latest
+              npm install -g appium-doctor@latest # Update as needed
+              appium-doctor --android
 
-      # Start Appium server
-      - name: Start Appium server
-        run: appium --log-level info &
+          # Start Appium server
+          - name: Start Appium server
+            run: appium --log-level info &
 
-      # Build and run Maven tests
-      - name: Build and run Maven tests
-        run: |
-          mvn clean test
+          # Build and run Maven tests
+          - name: Build and run Maven tests
+            run: |
+              mvn clean test
