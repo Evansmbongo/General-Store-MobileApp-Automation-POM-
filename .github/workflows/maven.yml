@@ -25,10 +25,22 @@ jobs:
       #     avd-name: my_avd
       #     api-level: 30
 
-      - name: Run Emulator
-        uses: ReactiveCircus/android-emulator-runner@v2.29.0
+      # - name: Run Emulator
+      #   uses: ReactiveCircus/android-emulator-runner@v2.29.0
+      #   with:
+      #     api-level: 31
+      #     profile: Nexus 6
+      #     arch: arm64-v8a
+      #     force-avd-creation: false
+      #     avd-name: macOS-avd-arm64-v8a-31
+      #     emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+      #     disable-animations: true
+      #     script: ./gradlew connectedCheck
+
+      - name: Run UI Tests
+        uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 31
+          api-level: 29
           profile: Nexus 6
           arch: arm64-v8a
           force-avd-creation: false
